@@ -83,6 +83,7 @@
         /* === 위젯 모드 스타일 === */
         .image-section {
             width: 92%;
+            flex: 1;
             padding: 10px 0;
             display: flex;
             justify-content: center;
@@ -91,6 +92,7 @@
 
         .image-container {
             width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -99,8 +101,8 @@
 
         .main-image {
             width: 100%;
-            height: auto;
-            object-fit: cover;
+            height: 100%;
+            object-fit: contain;
             filter: grayscale(100%);
             transition: filter 0.3s ease;
             cursor: pointer;
