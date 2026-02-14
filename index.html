@@ -83,7 +83,7 @@
         /* === 위젯 모드 스타일 === */
         .image-section {
             width: 100%;
-            padding: 25px 0 30px 0;
+            padding: 12px 0 14px 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -265,9 +265,10 @@
             </div>
         </div>
 
-        <!-- 하단 공유 컨트롤 (위젯 모드에서만 표시) -->
+        <!-- 온보딩에서 생성 후 링크 복사 영역 -->
         <div id="share-controls" class="hidden" style="margin-top: 10px;">
             <div class="dashed-line" style="width: 100%; margin-bottom: 8px; opacity: 0.5;"></div>
+            <div id="generated-url" style="font-size: 7px; color: #555; word-break: break-all; text-align: left; padding: 0 5px; margin-bottom: 6px;"></div>
             <button onclick="copyLink()" class="action-btn" style="margin-top: 0; font-size: 8px; padding: 4px 8px;">COPY LINK</button>
             <div id="copy-msg">LINK COPIED!</div>
         </div>
@@ -305,7 +306,7 @@
     function renderWidgetMode(dateStr, imgUrl) {
         document.getElementById('onboarding-view').classList.add('hidden');
         document.getElementById('widget-view').classList.remove('hidden');
-        document.getElementById('share-controls').classList.remove('hidden');
+        document.getElementById('share-controls').classList.add('hidden');
 
         const imgEl = document.getElementById('center-img');
         imgEl.src = imgUrl;
@@ -328,12 +329,11 @@
             return;
         }
 
-        const newUrl = new URL(window.location.href);
-        newUrl.searchParams.set('date', dateInput);
-        newUrl.searchParams.set('img', imgInput);
+        const baseUrl = window.location.origin + window.location.pathname;
+        const newUrl = `${baseUrl}?date=${encodeURIComponent(dateInput)}&img=${encodeURIComponent(imgInput)}`;
 
-        window.history.pushState({}, '', newUrl);
-        renderWidgetMode(dateInput, imgInput);
+        document.getElementById('generated-url').textContent = newUrl;
+        document.getElementById('share-controls').classList.remove('hidden');
     }
 
     function updateClock() {
@@ -363,7 +363,7 @@
     }
 
     function copyLink() {
-        const url = window.location.href;
+        const url = document.getElementById('generated-url').textContent;
         navigator.clipboard.writeText(url).then(() => {
             showCopyMsg();
         }).catch(() => {
