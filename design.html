@@ -82,16 +82,15 @@
 
         /* === 위젯 모드 스타일 === */
         .image-section {
-            width: 100%;
-            padding: 12px 0 14px 0;
+            width: calc(100% - 20px);
+            padding: 10px 0;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         .image-container {
-            width: 120px;
-            height: 160px;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -100,8 +99,8 @@
 
         .main-image {
             width: 100%;
-            height: 100%;
-            object-fit: contain;
+            height: auto;
+            object-fit: cover;
             filter: grayscale(100%);
             transition: filter 0.3s ease;
             cursor: pointer;
@@ -115,7 +114,7 @@
             width: 92%;
             display: grid;
             grid-template-columns: 1fr auto;
-            gap: 2px 0;
+            gap: 0;
             font-size: 9px;
             text-align: left;
             margin-top: 8px;
